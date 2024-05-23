@@ -2,18 +2,18 @@ package Package;
 
 import java.util.Objects;
 
-public class Cliente extends Persona {
+public class Usuario extends Persona {
 
-	private Integer dniCliente;
+	private Integer dniUsuario;
 
-	public Cliente(String nombre, String apellido, Integer dniCliente) {
-		super(nombre, apellido);
-		this.dniCliente = dniCliente;
+	public Usuario(String nombre, Integer contrasenia, Integer dniUsuario) {
+		super(nombre, contrasenia);
+		this.dniUsuario = dniUsuario;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dniCliente);
+		return Objects.hash(dniUsuario);
 	}
 
 	@Override
@@ -24,13 +24,13 @@ public class Cliente extends Persona {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
-		return Objects.equals(dniCliente, other.dniCliente);
+		Usuario other = (Usuario) obj;
+		return Objects.equals(dniUsuario, other.dniUsuario);
 	}
 	
 	
 	public Integer getDni() {
-		return dniCliente;
+		return dniUsuario;
 	}
 	
 	

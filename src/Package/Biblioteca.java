@@ -99,5 +99,31 @@ public class Biblioteca {
 		return librosPrestados;
 	}
 	
+	//metodo para libros disponibles
+	
+	public ArrayList <Libro> obtenerLibrosDisponibles(){
+		ArrayList<Libro> librosDisponibles = new ArrayList<>();
+		
+		for (Libro libro : libros) {
+			if(libro.getStock() > 0 ) {
+				librosDisponibles.add(libro);
+			}
+			
+		}
+		return librosDisponibles;
+	}
+	
+	//metodo para ver la lista de autores , lo hicimos con hashset para que no muestre duplicados
+	
+	public HashSet<Autor> mostrarListaDeAutores(){
+		HashSet<Autor> listaAutores = new HashSet<>();
+		for (Libro libro : libros) {
+			listaAutores.add(libro.getAutor());
+			
+		}
+		
+		return listaAutores;
+		
+	}
 	
 }

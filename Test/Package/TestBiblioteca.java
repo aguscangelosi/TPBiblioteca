@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -202,4 +203,72 @@ public class TestBiblioteca {
 		    assertTrue(librosPrestados.contains(libro1));
 		    assertTrue(librosPrestados.contains(libro2));
 	}
+	
+	
+	@Test
+	public void mostrarLaListaDeLibrosDisponiblesDeUnaBiblioteca() {
+		
+		 // Preparación de datos
+	    Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+	  
+	    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
+	    
+	    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
+	    Libro libro2 = new Libro("El coronel no tiene quien le escriba", 150, 1235, 5, garciaMarquez, Categoria.LITERATURA);
+	   
+	    
+	    biblioteca.agregarLibro(libro1);
+	    biblioteca.agregarLibro(libro2);
+	 
+	  
+	    
+	    ArrayList <Libro> librosDisponibles = biblioteca.obtenerLibrosDisponibles();
+	    
+	    //verificamos que tenga 3 libros
+	    assertEquals(2,librosDisponibles.size());
+	    
+	    //Verificamos que los libros esten disponibles
+	    
+	    assertEquals(libro1,librosDisponibles.get(0));
+	    assertEquals(libro2,librosDisponibles.get(1));
+	   
+		
+		
+		
+		
+	}
+	
+	@Test
+	public void mostrarLaListaDeAutores() {
+		 // Preparación de datos
+	    Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+	  
+	    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
+	    Autor borges = new Autor ("Borges",2345);
+	    
+	    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
+	    Libro libro2 = new Libro("El coronel no tiene quien le escriba", 150, 2345, 5, borges, Categoria.LITERATURA);
+	   
+	    
+	    biblioteca.agregarLibro(libro1);
+	    biblioteca.agregarLibro(libro2);
+		
+		HashSet <Autor> autoresEsperados = new HashSet<>();
+		autoresEsperados.add(borges);
+		autoresEsperados.add(garciaMarquez);
+		
+		HashSet<Autor> autoresObtenidos = biblioteca.mostrarListaDeAutores();
+		
+		assertEquals(autoresEsperados, autoresObtenidos);
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
