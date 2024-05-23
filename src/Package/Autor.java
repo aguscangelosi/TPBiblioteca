@@ -1,25 +1,42 @@
 package Package;
 
+
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Autor extends Persona{
+
+
+public class Autor /*extends Persona*/{
 
 	
-	private Integer codAutor;
-	private ArrayList<Libro>libros;
-
-	public Autor(String nombre, String apellido, Integer codAutor) {
-		super(nombre, apellido);
-		this.codAutor = codAutor;
-		this.libros = new ArrayList<>();
+	private String nombre;
+	private Integer idAutor;
+	ArrayList<Libro>libros;
+	public Autor(String nombre, Integer idAutor) {
+		
+		this.nombre = nombre;
+		this.idAutor = idAutor;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public Integer getIdAutor() {
+		return idAutor;
+	}
+	public void setIdAutor(Integer idAutor) {
+		this.idAutor = idAutor;
 	}
 
+	public void agregarLibro(Libro libro) {
+		libros.add(libro);
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(codAutor);
+		return Objects.hash(idAutor, libros, nombre);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -29,25 +46,8 @@ public class Autor extends Persona{
 		if (getClass() != obj.getClass())
 			return false;
 		Autor other = (Autor) obj;
-		return Objects.equals(codAutor, other.codAutor);
+		return Objects.equals(idAutor, other.idAutor) && Objects.equals(libros, other.libros)
+				&& Objects.equals(nombre, other.nombre);
 	}
-
-	
-	
-	
-	public Integer getCodAutor() {
-		return codAutor;
-	}
-
-	public ArrayList<Libro> getLibros() {
-		return libros;
-	}
-
-	@Override
-	public Boolean agregarLibro(Libro libro) {
-		return libros.add(libro);
-	}
-	
-	
 	
 }

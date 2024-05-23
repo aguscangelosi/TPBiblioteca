@@ -1,88 +1,102 @@
 package Package;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+
+
 
 public class Biblioteca {
 	
-	private ArrayList<Libro>libros;
-	private ArrayList<Autor>autores;
-	private ArrayList<Cliente>clientes;
-	
-	public Biblioteca() {
-		this.libros = new ArrayList<>();
-		this.autores = new ArrayList<>();
-		this.clientes = new ArrayList<>();
-		}
-	
+	private String nombre;
+	ArrayList<Libro>libros;
+	HashSet<Usuario>usuarios;
+	ArrayList<Prestamo>prestamos;
 
-	public void agregarLibro(Libro libro) {
-		libro.agregarCopia();
-		Autor autor = libro.getAutor();
+
+	public Biblioteca(String nombre) {
+
+		this.nombre = nombre;
+		this.libros= new ArrayList<>();
+		this.usuarios= new HashSet<>();
+		this.prestamos= new ArrayList<>();
 		
-		agregarAutor(autor);
 		
-		if(buscarLibroPorCodigo(libro.getCodLibro()) == null) {
-			libros.add(libro);
-			autor.agregarLibro(libro);
-		}
+		
 	}
-	
-	
-	
-	public void agregarAutor(Autor autor) {
-		if(buscarAutorPorCodigo(autor.getCodAutor()) == null) {
-			autores.add(autor);
-		}
+
+	public Boolean agregarLibro(Libro libro) {
+	Libro  libroEncontrado = buscarLibroPorCodigo(libro.getIdLibro());
+
+
+	if(libroEncontrado==null) {
+		libros.add(libro);
+	return true;
 	}
-	
-	public void registrarCliente(Cliente cliente) {
-		if(buscarClientePorDni(cliente.getDni()) == null) {
-			clientes.add(cliente);
-		}
+
+	//ese libro ya existe
+	return null;
+		
 	}
-	
-	public Cliente buscarClientePorDni(Integer dni) {
-		for(Cliente cliente : clientes) {
-			if(cliente.getDni().equals(dni)) {
-				return cliente;
-			}
-		}
-		return null;
-	}
-	
-	
+
 	public Libro buscarLibroPorCodigo(Integer codigo) {
 		for(Libro libro : libros) {
-			if(libro.getCodLibro().equals(codigo)) {
+			if(libro.getIdLibro().equals(codigo)) {
 				return libro;
 			}
 		}
 		return null;
 	}
-	
-	
-	
-	public Autor buscarAutorPorCodigo(Integer codigo) {
-		for(Autor autor : autores) {
-			if(autor.getCodAutor().equals(codigo)) {
-				return autor;
+
+	public ArrayList<Libro> obtenerLibrosEscritosPorAutorConSuCodigo(Integer idAutor) {
+		ArrayList<Libro>librosDelAutor= new ArrayList<>();
+		for (Libro libro : libros) {
+			if(libro.getAutor().getIdAutor().equals(idAutor)) {
+				librosDelAutor.add(libro);
+				
 			}
 		}
-		return null;
+		//no tiene libros
+		return librosDelAutor;
 	}
 
-	
-
-	public ArrayList<Libro> getLibros() {
-		return libros;
-	}
-
-	
-
-	public ArrayList<Libro> obtenerLibrosEscritosPorAutorConSuCodigo(Integer codAutor) {
-		Autor autor = buscarAutorPorCodigo(codAutor);
+	public Boolean agregarUsuario(Usuario usuario) {
 		
-		return autor.getLibros();
+		return usuarios.add(usuario);
+	}
+
+
+
+	public Boolean prestarLibroAUsuario(Prestamo prestamo) {
+	    if (prestamo.getLibro().getStock() > 0 && usuarios.contains(prestamo.getUsuario())) {
+	        prestamos.add(prestamo);
+	        Libro libro = prestamo.getLibro();
+	        libro.setStock(libro.getStock() - 1);
+	        return true;
+	    }
+	    return false;
+	}
+
+
+	public Boolean devolverLibroPrestadoAUnUsuario(Prestamo prestamo) {
+		if(prestamos.contains(prestamo)) {
+			prestamos.remove(prestamo);
+			Libro libro = prestamo.getLibro();
+			libro.setStock(libro.getStock() + 1);
+			return true;
+			
+		}
+		return null;
+		
+	}
+
+	public ArrayList<Libro> obtenerLibrosPrestadosAUnUsuario(Usuario usuario) {
+		ArrayList<Libro> librosPrestados = new ArrayList<>();
+		for (Prestamo prestamo : prestamos) {
+			if (prestamo.getUsuario().equals(usuario)) {
+				librosPrestados.add(prestamo.getLibro());
+			}
+		}
+		return librosPrestados;
 	}
 	
 	
