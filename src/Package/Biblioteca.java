@@ -70,6 +70,7 @@ public class Biblioteca {
 	    if (prestamo.getLibro().getStock() > 0 && usuarios.contains(prestamo.getUsuario())) {
 	        prestamos.add(prestamo);
 	        Libro libro = prestamo.getLibro();
+	        Usuario usuario = prestamo.getUsuario();
 	        libro.setStock(libro.getStock() - 1);
 	        return true;
 	    }
@@ -99,6 +100,16 @@ public class Biblioteca {
 		return librosPrestados;
 	}
 	
+	public HashSet<Usuario> mostrarLosUsuariosQueTienenUnLibroEspecificoPrestado(Libro libro){
+		HashSet<Usuario> usuarios = new HashSet<>();
+		for(Prestamo prestamo : prestamos) {
+			if(prestamo.getLibro().equals(libro)) {
+				usuarios.add(prestamo.getUsuario());
+			}
+		}
+		return usuarios;
+	}
+	
 	//metodo para libros disponibles
 	
 	public ArrayList <Libro> obtenerLibrosDisponibles(){
@@ -122,8 +133,18 @@ public class Biblioteca {
 			
 		}
 		
-		return listaAutores;
-		
+		return listaAutores;	
 	}
+
+	
+	//Metodo para mostrar la lista de usuarios
+	
+	public HashSet<Usuario> mostrarListaDeUsuarios(){
+		return usuarios;
+	}
+
+
+	
+	
 	
 }

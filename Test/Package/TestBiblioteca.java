@@ -239,7 +239,7 @@ public class TestBiblioteca {
 	}
 	
 	@Test
-	public void mostrarLaListaDeAutores() {
+	public void queSePuedaMostrarLaListaDeAutores() {
 		 // Preparación de datos
 	    Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
 	  
@@ -260,8 +260,95 @@ public class TestBiblioteca {
 		HashSet<Autor> autoresObtenidos = biblioteca.mostrarListaDeAutores();
 		
 		assertEquals(autoresEsperados, autoresObtenidos);
+	}
+	
+	@Test
+	public void queSePuedaDevolverUnLibro() {
+		//Preparacion de datos
+		
+		//parametros usuarios
+			Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+			String nombreUsuario="Franco Nadal";
+			Integer contrasenia=1234;
+			Integer dni=4644;
+			
+			Usuario usuario = new Usuario(nombreUsuario,contrasenia,dni);
+		
+		//Parametros autor
+			String nombre = "Gabriel Marquez";
+			Integer idAutor = 1234;
+			Autor garciaMarquez = new Autor (nombre,idAutor);
+		
+			String nombre2="Luis Borges";
+			Integer idAutor2=123;
+			Autor luisBorges = new Autor (nombre,idAutor2);
+		//Parametros libro
+			String titulo = "Cien años de soledad";
+			Integer numPaginas = 500;
+			Integer codLibro = 1234;
+			Integer numCopiasDisponibles = 5;
+			
+			Categoria categoria = Categoria.LITERATURA;
+			Libro cienAñosDeSoledad = new Libro (titulo, numPaginas, codLibro, numCopiasDisponibles, garciaMarquez, categoria);	
+			Libro cienAñosDeSoledad2 = new Libro (titulo, numPaginas, 141, numCopiasDisponibles, garciaMarquez, categoria);
+			Libro libroParaBorges= new Libro(titulo, numPaginas, 4, 5, luisBorges, categoria);
+			
+			biblioteca.agregarLibro(cienAñosDeSoledad);
+			biblioteca.agregarLibro(cienAñosDeSoledad2);
+			biblioteca.agregarLibro(libroParaBorges);
+			biblioteca.agregarUsuario(usuario);
+			
+			
+			Prestamo prestamo = new Prestamo(usuario, cienAñosDeSoledad, new Date());
+			
+			biblioteca.prestarLibroAUsuario(prestamo);
+			
+			assertTrue(biblioteca.devolverLibroPrestadoAUnUsuario(prestamo));
+	}
+	
+	@Test
+	public void queSePuedaMostrarLaListaDeUsuarios() {
+		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+		String nombreUsuario="Franco Nadal";
+		Integer contrasenia=1234;
+		Integer dni=4644;
+		
+		Usuario usuario = new Usuario(nombreUsuario,contrasenia,dni);
+		Usuario usuario1 = new Usuario("Agustín Cangelosi",124141,45128279);
+		
+		biblioteca.agregarUsuario(usuario);
+		biblioteca.agregarUsuario(usuario1);
 		
 		
+		HashSet<Usuario>usuarios = biblioteca.mostrarListaDeUsuarios();
+		
+		assertTrue(usuarios.contains(usuario));
+		assertTrue(usuarios.contains(usuario1));
+	}
+	
+	@Test
+	public void queSePuedanMostrarLosUsuariosQueTienenUnLibroEspecificoPrestado() {
+		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+	    Usuario usuario = new Usuario("Franco Nadal", 1234, 4644);
+	    Usuario usuario2 = new Usuario("Ramon Sosa", 1234, 46445);
+	    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
+	    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
+
+	    
+	    biblioteca.agregarLibro(libro1);
+	    biblioteca.agregarUsuario(usuario);
+	    biblioteca.agregarUsuario(usuario2);
+	    
+	    Prestamo prestamo1 = new Prestamo(usuario, libro1, new Date());
+	    Prestamo prestamo2 = new Prestamo(usuario2, libro1, new Date());
+	    
+	    biblioteca.prestarLibroAUsuario(prestamo1);
+	    biblioteca.prestarLibroAUsuario(prestamo2);
+	    
+	    HashSet<Usuario> usuarios = biblioteca.mostrarLosUsuariosQueTienenUnLibroEspecificoPrestado(libro1);
+	    
+	    assertTrue(usuarios.contains(usuario));
+	    assertTrue(usuarios.contains(usuario2));
 	}
 	
 	

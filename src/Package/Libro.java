@@ -1,5 +1,6 @@
 package Package;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 
@@ -12,6 +13,7 @@ public class Libro {
 	private Integer stock;
 	private Autor autor;
 	private Categoria categoria;
+	
 	public Libro(String nombre, Integer numPags, Integer idLibro, Integer stock, Autor autor, Categoria categoria) {
 		super();
 		this.nombre = nombre;
@@ -74,6 +76,8 @@ public class Libro {
 				&& Objects.equals(nombre, other.nombre) && Objects.equals(numPags, other.numPags)
 				&& Objects.equals(stock, other.stock);
 	}
+
+
 
 	
 	
