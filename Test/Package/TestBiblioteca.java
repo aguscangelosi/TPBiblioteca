@@ -352,6 +352,33 @@ public class TestBiblioteca {
 	}
 	
 	
+	@Test
+	public void  queSePuedaMostrarLosAutoresFavoritosDeUnUsuario() {
+		   Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+			  
+		    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
+		    Autor borges = new Autor ("Borges",2345);
+		    
+		    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
+		    Libro libro2 = new Libro("El coronel no tiene quien le escriba", 150, 2345, 5, borges, Categoria.LITERATURA);
+		    
+		    Usuario usuario = new Usuario("Franco Nadal", 1234, 4644);
+		   
+		    usuario.agregarLibroFavorito(libro1);
+		    usuario.agregarLibroFavorito(libro2);
+		    
+		    HashSet<Autor> autoresFavoritos = biblioteca.mostrarAutoresFavoritos(usuario);
+		    
+		    HashSet<Autor> esperadoAutores = new HashSet<>();
+		    esperadoAutores.add(garciaMarquez);
+		    esperadoAutores.add(borges);
+		    
+		    assertEquals(esperadoAutores,autoresFavoritos);
+		
+		
+		
+		
+	}	
 	
 	
 	

@@ -1,14 +1,17 @@
 package Package;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Usuario extends Persona {
 
 	private Integer dniUsuario;
+	private ArrayList<Libro> librosFavoritos;
 
 	public Usuario(String nombre, Integer contrasenia, Integer dniUsuario) {
 		super(nombre, contrasenia);
 		this.dniUsuario = dniUsuario;
+		this.librosFavoritos = new ArrayList<>();
 	}
 
 	@Override
@@ -34,8 +37,31 @@ public class Usuario extends Persona {
 	}
 	
 	
+	public Integer getDniUsuario() {
+		return dniUsuario;
+	}
+
+	public void setDniUsuario(Integer dniUsuario) {
+		this.dniUsuario = dniUsuario;
+	}
+
+	public ArrayList<Libro> getLibrosFavoritos() {
+		return librosFavoritos;
+	}
+
+	public void setLibrosFavoritos(ArrayList<Libro> librosFavoritos) {
+		this.librosFavoritos = librosFavoritos;
+	}
+
 	@Override
 	public Boolean agregarLibro(Libro libro) {
 		return false;
 	}
+	
+	public void agregarLibroFavorito(Libro libro) {
+		
+		librosFavoritos.add(libro);
+		
+	}
+	
 }

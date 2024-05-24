@@ -143,7 +143,19 @@ public class Biblioteca {
 		return usuarios;
 	}
 
-
+	
+	//metodo mostrar autores favoritos de un usuario
+	
+	public HashSet<Autor> mostrarAutoresFavoritos(Usuario usuario){
+		
+		HashSet <Autor> autoresFavorito = new HashSet<>();
+		for (Libro libro : usuario.getLibrosFavoritos()) {
+			autoresFavorito.add(libro.getAutor());
+			
+		}
+		
+		return autoresFavorito;
+	}
 	
 	
 	
