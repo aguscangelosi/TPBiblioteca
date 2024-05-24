@@ -239,7 +239,7 @@ public class TestBiblioteca {
 	}
 	
 	@Test
-	public void queSePuedaMostrarLaListaDeAutores() {
+	public void queSePuedaObtenerLaListaDeAutores() {
 		 // Preparación de datos
 	    Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
 	  
