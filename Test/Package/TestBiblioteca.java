@@ -253,9 +253,9 @@ public class TestBiblioteca {
 	    biblioteca.agregarLibro(libro1);
 	    biblioteca.agregarLibro(libro2);
 		
-		HashSet <Autor> autoresEsperados = new HashSet<>();
-		autoresEsperados.add(borges);
-		autoresEsperados.add(garciaMarquez);
+		HashSet<Autor> autoresEsperados = new HashSet<>();
+		autoresEsperados.add(libro1.getAutor());
+		autoresEsperados.add(libro2.getAutor());
 		
 		HashSet<Autor> autoresObtenidos = biblioteca.mostrarListaDeAutores();
 		
@@ -304,6 +304,7 @@ public class TestBiblioteca {
 			biblioteca.prestarLibroAUsuario(prestamo);
 			
 			assertTrue(biblioteca.devolverLibroPrestadoAUnUsuario(prestamo));
+			assertEquals(5, cienAñosDeSoledad.getStock().intValue());
 	}
 	
 	@Test
@@ -350,30 +351,65 @@ public class TestBiblioteca {
 	    assertTrue(usuarios.contains(usuario));
 	    assertTrue(usuarios.contains(usuario2));
 	}
-	
+	@Test
+	public void queSePuedaBuscarUsuarioPorSuDni() {
+		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+		Integer dniUsuario=4644;
+		Usuario usuario = new Usuario("Franco Nadal", 1234, dniUsuario);
+		Usuario usuario2 = new Usuario("Franco Nadal", 1234, 567575);
+		biblioteca.agregarUsuario(usuario);
+		biblioteca.agregarUsuario(usuario2);
+		
+		Usuario encontrado= biblioteca.buscarUsuarioPorDni(dniUsuario);
+		
+		assertEquals(usuario, encontrado);
+	}
+	@Test
+	public void queUnUsuarioEnBibliotecaPuedaElegirSusLibrosFavoritos() {
+		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+		  
+	    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
+	    Autor borges = new Autor ("Borges",2345);
+	    
+	    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
+	    Libro libro2 = new Libro("El coronel no tiene quien le escriba", 150, 2345, 5, borges, Categoria.LITERATURA);
+	    Integer idUsuario=4644;
+	    Usuario usuario = new Usuario("Franco Nadal", 1234, idUsuario);
+	    biblioteca.agregarUsuario(usuario);
+	    biblioteca.agregarLibro(libro1);
+	    biblioteca.agregarLibro(libro2);
+	    
+	    Boolean sePudo= biblioteca.agregarLibroFavorito(libro1,idUsuario);
+	    
+	    assertTrue(sePudo);
+	}
 	
 	@Test
 	public void  queSePuedaMostrarLosAutoresFavoritosDeUnUsuario() {
-		   Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
-			  
-		    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
-		    Autor borges = new Autor ("Borges",2345);
+		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+		  
+	    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
+	    Autor borges = new Autor ("Borges",2345);
+	    
+	    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
+	    Libro libro2 = new Libro("El coronel no tiene quien le escriba", 150, 2345, 5, borges, Categoria.LITERATURA);
+	    Integer idUsuario=4644;
+	    Usuario usuario = new Usuario("Franco Nadal", 1234, idUsuario);
+	    biblioteca.agregarUsuario(usuario);
+	    biblioteca.agregarLibro(libro1);
+	    biblioteca.agregarLibro(libro2);
+	    
+	    biblioteca.agregarLibroFavorito(libro1,idUsuario);
+	    biblioteca.agregarLibroFavorito(libro2, idUsuario);
+	
 		    
-		    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
-		    Libro libro2 = new Libro("El coronel no tiene quien le escriba", 150, 2345, 5, borges, Categoria.LITERATURA);
+		HashSet<Autor> autoresFavoritos = biblioteca.mostrarAutoresFavoritos(usuario);
 		    
-		    Usuario usuario = new Usuario("Franco Nadal", 1234, 4644);
-		   
-		    usuario.agregarLibroFavorito(libro1);
-		    usuario.agregarLibroFavorito(libro2);
+		HashSet<Autor> esperadoAutores = new HashSet<>();
+		esperadoAutores.add(garciaMarquez);
+		esperadoAutores.add(borges);
 		    
-		    HashSet<Autor> autoresFavoritos = biblioteca.mostrarAutoresFavoritos(usuario);
-		    
-		    HashSet<Autor> esperadoAutores = new HashSet<>();
-		    esperadoAutores.add(garciaMarquez);
-		    esperadoAutores.add(borges);
-		    
-		    assertEquals(esperadoAutores,autoresFavoritos);
+		assertEquals(esperadoAutores,autoresFavoritos);
 		
 		
 		

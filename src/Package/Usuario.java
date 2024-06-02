@@ -1,17 +1,18 @@
 package Package;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class Usuario extends Persona {
 
 	private Integer dniUsuario;
-	private ArrayList<Libro> librosFavoritos;
+	private HashSet<Libro> librosFavoritos;
 
 	public Usuario(String nombre, Integer contrasenia, Integer dniUsuario) {
 		super(nombre, contrasenia);
 		this.dniUsuario = dniUsuario;
-		this.librosFavoritos = new ArrayList<>();
+		this.librosFavoritos = new HashSet<>();
 	}
 
 	@Override
@@ -45,23 +46,20 @@ public class Usuario extends Persona {
 		this.dniUsuario = dniUsuario;
 	}
 
-	public ArrayList<Libro> getLibrosFavoritos() {
+
+	public HashSet<Libro> getLibrosFavoritos() {
 		return librosFavoritos;
 	}
 
-	public void setLibrosFavoritos(ArrayList<Libro> librosFavoritos) {
+	public void setLibrosFavoritos(HashSet<Libro> librosFavoritos) {
 		this.librosFavoritos = librosFavoritos;
 	}
 
 	@Override
 	public Boolean agregarLibro(Libro libro) {
-		return false;
+		return  librosFavoritos.add(libro);
 	}
 	
-	public void agregarLibroFavorito(Libro libro) {
-		
-		librosFavoritos.add(libro);
-		
-	}
+	
 	
 }

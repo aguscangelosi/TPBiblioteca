@@ -5,12 +5,13 @@ import java.util.HashSet;
 
 
 
-public class Biblioteca {
+public class Biblioteca implements IBiblioteca{
 	
 	private String nombre;
 	ArrayList<Libro>libros;
 	HashSet<Usuario>usuarios;
 	ArrayList<Prestamo>prestamos;
+	HashSet<Libro>librosfavoritos;
 
 
 	public Biblioteca(String nombre) {
@@ -19,17 +20,19 @@ public class Biblioteca {
 		this.libros= new ArrayList<>();
 		this.usuarios= new HashSet<>();
 		this.prestamos= new ArrayList<>();
-		
+		this.librosfavoritos= new HashSet<>();
 		
 		
 	}
 
 	public Boolean agregarLibro(Libro libro) {
 	Libro  libroEncontrado = buscarLibroPorCodigo(libro.getIdLibro());
-
+	Autor autor = libro.getAutor();
 
 	if(libroEncontrado==null) {
 		libros.add(libro);
+		autor.agregarLibro(libro);
+		
 	return true;
 	}
 
@@ -149,14 +152,34 @@ public class Biblioteca {
 	public HashSet<Autor> mostrarAutoresFavoritos(Usuario usuario){
 		
 		HashSet <Autor> autoresFavorito = new HashSet<>();
-		for (Libro libro : usuario.getLibrosFavoritos()) {
+		for (Libro libro :usuario.getLibrosFavoritos()) {
 			autoresFavorito.add(libro.getAutor());
 			
 		}
 		
 		return autoresFavorito;
 	}
+
+	public Boolean agregarLibroFavorito(Libro libro, Integer idUsuario) {
+		Usuario usuario=buscarUsuarioPorDni(idUsuario);
+		if(libros.contains(libro)&&usuario!=null) {
+			usuario.agregarLibro(libro);
+			return librosfavoritos.add(libro);
+		}
+		return null;
 	
+		
+	}
+
+	public Usuario buscarUsuarioPorDni(Integer idUsuario) {
+		for (Usuario usuario : usuarios) {
+			if(usuario.getDniUsuario().equals(idUsuario)) {
+				return usuario;
+			}
+		}
+		return null;
+	}
 	
+
 	
 }
