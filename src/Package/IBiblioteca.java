@@ -18,4 +18,6 @@ HashSet<Usuario> mostrarListaDeUsuarios();
 HashSet<Autor> mostrarAutoresFavoritos(Usuario usuario);
 Boolean agregarLibroFavorito(Libro libro, Integer idUsuario);
 Usuario buscarUsuarioPorDni(Integer idUsuario);
+
+
 }

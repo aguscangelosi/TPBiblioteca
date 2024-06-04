@@ -452,7 +452,33 @@ public class TestBiblioteca {
 		
 	}	
 	
-	
+	@Test
+	public void ordenarLibrosPorStock() {
+		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+		  
+	    Autor garciaMarquez = new Autor("Gabriel Marquez", 1234);
+	    Autor borges = new Autor ("Borges",2345); 
+	    
+	    Libro libro1 = new Libro("Cien años de soledad", 500, 1234, 5, garciaMarquez, Categoria.LITERATURA);
+	    Libro libro2 = new Libro("El coronel no tiene quien le escriba", 150, 2345, 10, borges, Categoria.LITERATURA);
+	    Libro libro3 = new Libro("En Agosto Nos vemos ", 500, 134, 7, garciaMarquez, Categoria.LITERATURA);
+	    
+	    biblioteca.agregarLibro(libro1);
+	    biblioteca.agregarLibro(libro2);
+	    biblioteca.agregarLibro(libro3);
+	    
+	    biblioteca.ordernarLibrosPorStock();
+	    
+	    
+	    ArrayList<Libro> libros = biblioteca.libros;
+	    
+	    assertEquals(libro1 , libros.get(0));
+	    assertEquals (libro3, libros.get(1));
+	    assertEquals (libro2, libros.get(2));
+		
+		
+		
+	}
 	
 	
 	

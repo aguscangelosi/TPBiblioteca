@@ -1,6 +1,8 @@
 package Package;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 
 
@@ -178,6 +180,17 @@ public class Biblioteca implements IBiblioteca{
 			}
 		}
 		return null;
+	}
+
+	public void ordernarLibrosPorStock() {
+		
+		 Collections.sort(libros, new Comparator<Libro>() {
+	            @Override
+	            public int compare(Libro l1, Libro l2) {
+	                return l1.getStock().compareTo(l2.getStock());
+	            }
+	        });
+		
 	}
 	
 
