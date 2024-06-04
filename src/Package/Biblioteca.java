@@ -69,7 +69,7 @@ public class Biblioteca implements IBiblioteca{
 
 
 
-	public Boolean prestarLibroAUsuario(Prestamo prestamo) {
+	public Boolean prestarLibroAUsuario(Prestamo prestamo) throws Exception {
 	    if (prestamo.getLibro().getStock() > 0 && usuarios.contains(prestamo.getUsuario())) {
 	        prestamos.add(prestamo);
 	        Libro libro = prestamo.getLibro();
@@ -77,7 +77,7 @@ public class Biblioteca implements IBiblioteca{
 	        libro.setStock(libro.getStock() - 1);
 	        return true;
 	    }
-	    return false;
+	    throw new Exception();
 	}
 
 

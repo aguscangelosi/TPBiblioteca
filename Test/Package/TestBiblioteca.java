@@ -122,7 +122,7 @@ public class TestBiblioteca {
 	
 	@Test
 	//fran
-	public void queSePuedaPrestarUnLibroAUnUsuario() {
+	public void queSePuedaPrestarUnLibroAUnUsuario() throws Exception {
 		//Preparacion de datos
 		
 			//parametros usuarios
@@ -167,10 +167,46 @@ public class TestBiblioteca {
 				assertEquals(4, cienAñosDeSoledad.getStock().intValue());
 				
 				}
+	@Test (expected = Exception.class)
+	public void queSiLeQuieroPrestarUnLibroAUnUsuarioYNoHayStockOcurraUnaExcepcion() throws Exception {
+		//Preparacion de datos
+		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
+		//parametros usuarios
+			
+			String nombreUsuario="Franco Nadal";
+			Integer contrasenia=1234;
+			Integer dni=4644;
+			
+			Usuario usuario = new Usuario(nombreUsuario,contrasenia,dni);
+			biblioteca.agregarUsuario(usuario);
+		//Parametros autor
+			String nombre = "Gabriel Marquez";
+			Integer idAutor = 1234;
+			Autor garciaMarquez = new Autor (nombre,idAutor);
+		
+			String nombre2="Luis Borges";
+			Integer idAutor2=123;
+			Autor luisBorges = new Autor (nombre2,idAutor2);
+		//Parametros libro
+			String titulo = "Cien años de soledad";
+			Integer numPaginas = 500;
+			Integer codLibro = 1234;
+			Integer numCopiasDisponibles = 1;
+			Categoria categoria = Categoria.LITERATURA;
+			Libro cienAñosDeSoledad = new Libro (titulo, numPaginas, codLibro, numCopiasDisponibles, garciaMarquez, categoria);	
+			biblioteca.agregarLibro(cienAñosDeSoledad);
+			
+		//parametros del prestamo
+			Prestamo prestamo = new Prestamo(usuario, cienAñosDeSoledad, new Date());
+			biblioteca.prestarLibroAUsuario(prestamo);
+			biblioteca.prestarLibroAUsuario(prestamo);
+			
+		
+	}
 	
 	//fran
 	@Test
-	public void queSePuedaObtenerLosLibrosQueFueronPrestadosAUnUsuario() {
+	public void queSePuedaObtenerLosLibrosQueFueronPrestadosAUnUsuario() throws Exception {
 		
 		    // Preparación de datos
 		    Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
@@ -263,7 +299,7 @@ public class TestBiblioteca {
 	}
 	
 	@Test
-	public void queSePuedaDevolverUnLibro() {
+	public void queSePuedaDevolverUnLibro() throws Exception {
 		//Preparacion de datos
 		
 		//parametros usuarios
@@ -328,7 +364,7 @@ public class TestBiblioteca {
 	}
 	
 	@Test
-	public void queSePuedanMostrarLosUsuariosQueTienenUnLibroEspecificoPrestado() {
+	public void queSePuedanMostrarLosUsuariosQueTienenUnLibroEspecificoPrestado() throws Exception {
 		Biblioteca biblioteca = new Biblioteca("Biblioteca Nacional");
 	    Usuario usuario = new Usuario("Franco Nadal", 1234, 4644);
 	    Usuario usuario2 = new Usuario("Ramon Sosa", 1234, 46445);

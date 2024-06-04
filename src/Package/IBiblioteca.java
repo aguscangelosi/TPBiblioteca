@@ -8,7 +8,7 @@ Boolean agregarLibro(Libro libro);
 Libro buscarLibroPorCodigo(Integer codigo);
 ArrayList<Libro> obtenerLibrosEscritosPorAutorConSuCodigo(Integer idAutor);
 Boolean agregarUsuario(Usuario usuario);
-Boolean prestarLibroAUsuario(Prestamo prestamo);
+Boolean prestarLibroAUsuario(Prestamo prestamo) throws Exception;
 Boolean devolverLibroPrestadoAUnUsuario(Prestamo prestamo);
 ArrayList<Libro> obtenerLibrosPrestadosAUnUsuario(Usuario usuario);
 HashSet<Usuario> mostrarLosUsuariosQueTienenUnLibroEspecificoPrestado(Libro libro);
