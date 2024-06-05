@@ -29,16 +29,16 @@ public class TestBiblioteca {
 		//Parametros autor
 				String nombre = "Gabriel";
 				Integer idAutor = 1234;
-				Autor garciaMarquez = new Autor (nombre,idAutor);
+				Persona garciaMarquez = new Autor (nombre,idAutor);
 		//Parametros libro
 				String titulo = "Cien años de soledad";
 				Integer numPaginas = 500;
 				Integer codLibro = 1234;
 				Integer numCopiasDisponibles = 5;
-				Autor autor = garciaMarquez;
+				Persona autor = garciaMarquez;
 				Categoria categoria = Categoria.LITERATURA;
-				Libro cienAñosDeSoledad = new Libro (titulo, numPaginas, codLibro, numCopiasDisponibles, autor, categoria);	
-				Libro cienAñosDeSoledad2 = new Libro (titulo, numPaginas, codLibro, numCopiasDisponibles, autor, categoria);	
+				Libro cienAñosDeSoledad = new Libro (titulo, numPaginas, codLibro, numCopiasDisponibles, (Autor) autor, categoria);	
+				Libro cienAñosDeSoledad2 = new Libro (titulo, numPaginas, codLibro, numCopiasDisponibles, (Autor) autor, categoria);	
 				
 		//ejecucion
 				Boolean sePudo=biblioteca.agregarLibro(cienAñosDeSoledad);
