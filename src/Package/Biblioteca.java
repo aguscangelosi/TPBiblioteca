@@ -190,9 +190,17 @@ public class Biblioteca implements IBiblioteca{
 	                return l1.getStock().compareTo(l2.getStock());
 	            }
 	        });
-		
 	}
 	
+public void ordenarLibrosPorNombreDelAutorQueLoEscribio() {
+	Collections.sort(libros, new Comparator<Libro>() {
 
+		@Override
+		public int compare(Libro o1, Libro o2) {
+			
+			return o1.getAutor().getNombre().compareTo(o2.getAutor().getNombre());
+		}
+	});
+}
 	
 }

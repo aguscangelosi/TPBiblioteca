@@ -52,4 +52,7 @@ public class Autor extends Persona {
         return Objects.equals(idAutor, other.idAutor) && Objects.equals(nombre, other.nombre);
     }
 	
+
+
+    
 }
